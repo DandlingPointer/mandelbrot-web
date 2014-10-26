@@ -28,8 +28,8 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
 
     draw = function (minX, maxX, minY, maxY, iterations) {
         var x, y, coordX, coordY, c, z, color;
-        for (x = minX; x <= maxX; x = x + 1) {
-            for (y = minY; y <= maxY; y = y + 1) {
+        for (x = r.x; x <= r.width; x = x + 1) {
+            for (y = r.y; y <= r.height; y = y + 1) {
                 coordX = helpers.mapVal(x, r.x, r.height, minX, maxX);
                 coordY = helpers.mapVal(y, r.y, r.height, minY, maxY);
                 z = Object.create(complex);
