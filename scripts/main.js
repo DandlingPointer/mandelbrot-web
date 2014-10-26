@@ -5,9 +5,6 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
         r = render(ctx, 0, 0, canvas.height, canvas.width),
         draw,
         checkPosition;
-    r.drawPixel(50, 50, 0, 0, 0, 255);
-    r.commit();
-
     checkPosition = function (z, c, iterations) {
         var i,
             color = {
@@ -47,4 +44,6 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
         }
         r.commit();
     };
+
+    draw(-2.0, 2.0, -2.0, 2.0, 30);
 });
