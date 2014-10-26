@@ -5,6 +5,7 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
         r = render(ctx, 0, 0, canvas.height, canvas.width),
         draw,
         checkPosition;
+    console.log(r.x, r.y, r.height, r.width);
     checkPosition = function (z, c, iterations) {
         var i,
             color = {
@@ -14,7 +15,7 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
                 a: 255
             };
         for (i = 0; i < iterations; i = i + 1) {
-            z = z.pow(2).add(c);
+            z = z.multiply(z).add(c);
             if (z.absolute() >= 2) {
                 return color;
             }
@@ -30,7 +31,7 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
         var x, y, coordX, coordY, c, z, color;
         for (x = r.x; x <= r.width; x = x + 1) {
             for (y = r.y; y <= r.height; y = y + 1) {
-                coordX = helpers.mapVal(x, r.x, r.height, minX, maxX);
+                coordX = helpers.mapVal(x, r.x, r.width, minX, maxX);
                 coordY = helpers.mapVal(y, r.y, r.height, minY, maxY);
                 z = Object.create(complex);
                 z.r = 0;
