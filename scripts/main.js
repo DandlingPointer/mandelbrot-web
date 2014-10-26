@@ -15,8 +15,13 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
                 a: 255
             };
         for (i = 0; i < iterations; i = i + 1) {
-            z = z.multiply(z).add(c);
-            if (z.absolute() >= 2) {
+            //z^2
+            z.r = z.r * z.r - z.i * z.i;
+            z.i = z.r * z.i + z.i * z.r;
+            //z+c (z ist jetzt result von z^2)
+            z.r = z.r + c.r;
+            z.i = z.i + c.i;
+            if (Math.sqrt(z.r * z.r + z.i * z.i) >= 2) {
                 return color;
             }
         }
@@ -33,12 +38,14 @@ require(["complex", "render", "helpers"], function (complex, render, helpers) {
             for (y = r.y; y <= r.height; y = y + 1) {
                 coordX = helpers.mapVal(x, r.x, r.width, minX, maxX);
                 coordY = helpers.mapVal(y, r.y, r.height, minY, maxY);
-                z = Object.create(complex);
-                z.r = 0;
-                z.i = 0;
-                c = Object.create(complex);
-                c.r = coordX;
-                c.i = coordY;
+                z = {
+                    r: 0,
+                    i: 0
+                };
+                c = {
+                    r: coordX,
+                    i: coordY
+                };
                 color = checkPosition(z, c, iterations);
                 r.drawPixel(x, y, color.r, color.g, color.b, color.a);
             }
