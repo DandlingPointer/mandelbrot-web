@@ -1,10 +1,15 @@
-require(["complex", "render", "helpers"], function (complex, render, helpers) {
+require(["render", "helpers"], function (render, helpers) {
     "use strict";
     var canvas = document.getElementById("draw-area"),
-        ctx = canvas.getContext("2d"),
-        r = render(ctx, 0, 0, canvas.height, canvas.width),
+        ctx,
+        r,
         draw,
         checkPosition;
+    canvas.width = 500;
+    canvas.height = 500;
+    ctx = canvas.getContext("2d");
+
+    r = render(ctx, 0, 0, canvas.height, canvas.width);
     console.log(r.x, r.y, r.height, r.width);
     checkPosition = function (z, c, iterations) {
         var i,
