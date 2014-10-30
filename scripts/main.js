@@ -85,15 +85,25 @@ require(["render", "helpers"], function (render, helpers) {
             b: 30
         };
         document.getElementById("width").value = width;
+        validateFunctionFactory(width, 200, 3000)();
         document.getElementById("height").value = height;
+        validateFunctionFactory(height, 200, 3000)();
         document.getElementById("min-x").value = dimensions.minX;
+        validateFunctionFactory(dimensions.minX, NaN, NaN)();
         document.getElementById("max-x").value = dimensions.maxX;
+        validateFunctionFactory(dimensions.maxX, NaN, NaN)();
         document.getElementById("min-y").value = dimensions.minY;
+        validateFunctionFactory(dimensions.minY, NaN, NaN)();
         document.getElementById("max-y").value = dimensions.maxY;
+        validateFunctionFactory(dimensions.maxY, NaN, NaN)();
         document.getElementById("iterations").value = iterations;
+        validateFunctionFactory(iterations, 0, 30)();
         document.getElementById("mod-r").value = colorMod.r;
+        validateFunctionFactory(colorMod.r, NaN, NaN)();
         document.getElementById("mod-g").value = colorMod.g;
+        validateFunctionFactory(colorMod.g, NaN, NaN)();
         document.getElementById("mod-b").value = colorMod.b;
+        validateFunctionFactory(colorMod.b, NaN, NaN)();
     };
 
     update = function () {
