@@ -5,7 +5,26 @@ require(["render", "helpers"], function (render, helpers) {
         r,
         draw,
         checkPosition,
-        update;
+        update,
+        width,
+        height,
+        dimensions,
+        iterations,
+        colorMod;
+    width = 500;
+    height = 500;
+    dimensions = {
+        minX: -2.0,
+        maxX: 2.0,
+        minY: -2.0,
+        maxY: 2.0
+    };
+    iterations = 30;
+    colorMod = {
+        modR: 30,
+        modG: 30,
+        modB: 30
+    };
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,
             color = {
@@ -56,6 +75,7 @@ require(["render", "helpers"], function (render, helpers) {
         }
         renderer.commit();
     };
+
 
     update = function () {
         var canvas, ctx, r;
