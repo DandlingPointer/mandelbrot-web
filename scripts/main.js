@@ -60,15 +60,21 @@ require(["render", "helpers"], function (render, helpers) {
     update = function () {
         var canvas, ctx, r;
         canvas = document.getElementById("draw-area");
-        canvas.width = window.innerHeight;
-        canvas.height = window.innerHeight;
+        canvas.width = Number(document.getElementById("width").value);
+        canvas.height = Number(document.getElementById("height").value);
         ctx = canvas.getContext("2d");
         r = render(ctx, 0, 0, canvas.height, canvas.width);
-        draw(r, -2.0, 2.0, -2.0, 2.0, 30, {
-            r: 30,
-            g: 30,
-            b: 30
-        });
+        draw(r,
+            Number(document.getElementById("min-x").value),
+            Number(document.getElementById("max-x").value),
+            Number(document.getElementById("min-y").value),
+            Number(document.getElementById("max-y").value),
+            Number(document.getElementById("iterations").value), {
+                r: Number(document.getElementById("mod-r").value),
+                g: Number(document.getElementById("mod-g").value),
+                b: Number(document.getElementById("mod-b").value)
+            });
     };
     update();
+    document.getElementById("draw-button").onclick = update;
 });
