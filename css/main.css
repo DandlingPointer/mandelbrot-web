@@ -35,23 +35,25 @@ fieldset {
 input {
     float: right;
     clear: both;
+    border: solid 1px #888;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 2px;
+    outline: none;
+    width: 30%;
 }
 #draw {
     width: 100%;
 }
 .warning {
-    border: solid;
-    border-width: 1px;
-    border-color: #F2BD1D;
+    box-shadow: 0 0 4 #F2BD1D;
 }
 .warning::before {
     content: "<i class=\"fa fa-exclamation-triangle\"></i>";
     color: #F2BD1D;
 }
 .error {
-    border: solid;
-    border-width: 1px;
-    border-color: #F20600;
+    box-shadow: 0 0 4 #F20600;
 }
 .error::before {
     content: "<i class=\"fa fa-times\"></i>";

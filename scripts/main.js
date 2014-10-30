@@ -21,9 +21,9 @@ require(["render", "helpers"], function (render, helpers) {
     };
     iterations = 30;
     colorMod = {
-        modR: 30,
-        modG: 30,
-        modB: 30
+        r: 30,
+        g: 30,
+        b: 30
     };
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,
@@ -55,12 +55,12 @@ require(["render", "helpers"], function (render, helpers) {
         return color;
     };
 
-    draw = function (renderer, minX, maxX, minY, maxY, iterations, colorMod) {
+    draw = function (renderer, dim, iterations, colorMod) {
         var x, y, coordX, coordY, c, z, color;
         for (x = renderer.x; x <= renderer.width; x = x + 1) {
             for (y = renderer.y; y <= renderer.height; y = y + 1) {
-                coordX = helpers.mapVal(x, renderer.x, renderer.width, minX, maxX);
-                coordY = helpers.mapVal(y, renderer.y, renderer.height, minY, maxY);
+                coordX = helpers.mapVal(x, renderer.x, renderer.width, dim.minX, dim.maxX);
+                coordY = helpers.mapVal(y, renderer.y, renderer.height, dim.minY, dim.maxY);
                 z = {
                     r: 0.0,
                     i: 0.0
@@ -84,17 +84,117 @@ require(["render", "helpers"], function (render, helpers) {
         canvas.height = Number(document.getElementById("height").value);
         ctx = canvas.getContext("2d");
         r = render(ctx, 0, 0, canvas.height, canvas.width);
-        draw(r,
-            Number(document.getElementById("min-x").value),
-            Number(document.getElementById("max-x").value),
-            Number(document.getElementById("min-y").value),
-            Number(document.getElementById("max-y").value),
-            Number(document.getElementById("iterations").value), {
-                r: Number(document.getElementById("mod-r").value),
-                g: Number(document.getElementById("mod-g").value),
-                b: Number(document.getElementById("mod-b").value)
-            });
+        draw(r, dimensions, iterations, colorMod);
+    };
+    document.getElementById("draw-button").onclick = update;
+    document.getElementById("width").onchange = function () {
+        var val = this.value;
+        if (isNaN(Number(val))) {
+            alert("horror");
+            this.classList.add("error");
+            return;
+        }
+        if (val > 3000) {
+            this.classList.add("warning");
+        } else {
+            this.classList.remove("warning");
+        }
+        this.classList.remove("error");
+        width = val;
+    };
+    document.getElementById("height").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        if (val > 3000) {
+            this.classList.add("warning");
+        } else {
+            this.classList.remove("warning");
+        }
+        this.classList.remove("error");
+        height = val;
+    };
+    document.getElementById("min-x").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        dimensions.minX = val;
+    };
+    document.getElementById("max-x").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        dimensions.maxX = val;
+
+    };
+    document.getElementById("min-y").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        dimensions.minY = val;
+    };
+    document.getElementById("max-y").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        dimensions.maxY = val;
+
+    };
+    document.getElementById("iterations").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        if (val > 100) {
+            this.classList.add("warning");
+        } else {
+            this.classList.remove("warning");
+        }
+        this.classList.remove("error");
+        iterations = val;
+    };
+    document.getElementById("mod-r").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        colorMod.r = val;
+
+    };
+    document.getElementById("mod-g").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        colorMod.g = val;
+    };
+    document.getElementById("mod-b").onchange = function () {
+        var val = this.value;
+        if (Number.isNaN(Number(val))) {
+            this.classList.add("error");
+            return;
+        }
+        this.classList.remove("error");
+        colorMod.b = val;
     };
     update();
-    document.getElementById("draw-button").onclick = update;
 });
