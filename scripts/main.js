@@ -5,14 +5,13 @@ require(["render", "helpers"], function (render, helpers) {
         r,
         draw,
         checkPosition;
-    canvas.width = 500;
-    canvas.height = 500;
+    canvas.width = window.innerHeight;
+    canvas.height = window.innerHeight;
     ctx = canvas.getContext("2d");
 
     r = render(ctx, 0, 0, canvas.height, canvas.width);
-    console.log(r.x, r.y, r.height, r.width);
-    checkPosition = function (z, c, iterations) {
-        var i,
+    checkPosition = function (z, c, iterations, mod) {
+        var i, temp, res,
             color = {
                 r: 255,
                 g: 255,
@@ -21,12 +20,16 @@ require(["render", "helpers"], function (render, helpers) {
             };
         for (i = 0; i < iterations; i = i + 1) {
             //z^2
+            temp = z.r;
             z.r = z.r * z.r - z.i * z.i;
-            z.i = z.r * z.i + z.i * z.r;
+            z.i = temp * z.i + z.i * temp;
             //z+c (z ist jetzt result von z^2)
             z.r = z.r + c.r;
             z.i = z.i + c.i;
             if (Math.sqrt(z.r * z.r + z.i * z.i) >= 2) {
+                color.r = mod.r * i;
+                color.g = mod.g * i;
+                color.b = mod.b * i;
                 return color;
             }
         }
@@ -37,26 +40,30 @@ require(["render", "helpers"], function (render, helpers) {
         return color;
     };
 
-    draw = function (minX, maxX, minY, maxY, iterations) {
+    draw = function (renderer, minX, maxX, minY, maxY, iterations, colorMod) {
         var x, y, coordX, coordY, c, z, color;
-        for (x = r.x; x <= r.width; x = x + 1) {
-            for (y = r.y; y <= r.height; y = y + 1) {
-                coordX = helpers.mapVal(x, r.x, r.width, minX, maxX);
-                coordY = helpers.mapVal(y, r.y, r.height, minY, maxY);
+        for (x = renderer.x; x <= renderer.width; x = x + 1) {
+            for (y = renderer.y; y <= renderer.height; y = y + 1) {
+                coordX = helpers.mapVal(x, renderer.x, renderer.width, minX, maxX);
+                coordY = helpers.mapVal(y, renderer.y, renderer.height, minY, maxY);
                 z = {
-                    r: 0,
-                    i: 0
+                    r: 0.0,
+                    i: 0.0
                 };
                 c = {
                     r: coordX,
                     i: coordY
                 };
-                color = checkPosition(z, c, iterations);
-                r.drawPixel(x, y, color.r, color.g, color.b, color.a);
+                color = checkPosition(z, c, iterations, colorMod);
+                renderer.drawPixel(x, y, color.r, color.g, color.b, color.a);
             }
         }
         r.commit();
     };
 
-    draw(-2.0, 2.0, -2.0, 2.0, 30);
+    draw(-2.0, 2.0, -2.0, 2.0, 30, {
+        r: 30,
+        g: 30,
+        b: 30
+    });
 });
