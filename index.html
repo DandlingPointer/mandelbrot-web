@@ -4,40 +4,53 @@
 <head>
     <title>Mandelbrot Web</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- google font -->
+    <link href='http://fonts.googleapis.com/css?family=Lobster|Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
+    <header>
+        Mandelbrot
+    </header>
     <canvas id="draw-area"></canvas>
     <div id="control-panel">
         <form>
             <fieldset>
                 <legend>dimensions</legend>
                 width:
-                <input type="number" id="width" name="width">
+                <input type="text" id="width" name="width" value="500">
                 <br>height:
-                <input type="number" id="height" name="height">
+                <input type="text" id="height" name="height" value="500">
             </fieldset>
             <fieldset>
                 <legend>area</legend>
                 min X:
-                <input type="number" id="min-x" name="minX">
+                <input type="text" id="min-x" name="minX" value="-2.0">
                 <br>max X:
-                <input type="number" id="max-x" name="maxX">
+                <input type="text" id="max-x" name="maxX" value="2.0">
                 <br>min Y:
-                <input type="number" id="min-y" name="minY">
+                <input type="text" id="min-y" name="minY" value="-2.0">
                 <br>max Y:
-                <input type="number" id="max-y" name="maxY">
+                <input type="text" id="max-y" name="maxY" value="2.0">
             </fieldset>
 
             <fieldset>
                 <legend>color modification</legend>
                 red:
-                <input type="number" id="mod-r" name="modR">
+                <input type="text" id="mod-r" name="modR" value="30">
                 <br>green:
-                <input type="number" id="mod-g" name="modG">
+                <input type="text" id="mod-g" name="modG" value="30">
                 <br>blue:
-                <input type="number" id="mod-b" name="modB">
+                <input type="text" id="mod-b" name="modB" value="30">
             </fieldset>
+            <fieldset>
+                <legend>Setup</legend>
+                Iterations:
+                <input type="text" id="iterations" name="interations" value="30">
+                <br>
+            </fieldset>
+            <br>
+            <button id="draw" name="draw">Draw</button>
         </form>
     </div>
     <script data-main="scripts/main" src="scripts/require.js"></script>

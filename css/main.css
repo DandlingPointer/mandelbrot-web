@@ -1,14 +1,44 @@
-#draw-area {
+header {
+    position: fixed;
+    height: 50px;
+    width: 100%;
     left: 0;
     top: 0;
+    background-color: #222222;
+    color: white;
+    font-family: "Lobster";
+    line-height: 50px;
+    font-size: 200%;
+    padding-left: 10px;
+}
+body {
+    font-family: "Open Sans";
+}
+#draw-area {
+    margin-top: 50px;
 }
 #control-panel {
-    right: 10px;
-    top: 10px;
+    top: 50px;
+    right: 0px;
+    padding: 10px;
     position: fixed;
+    height: 100%;
+    width: 250px;
+    background-color: #333333;
+    color: #FFFFFF;
+    -webkit-box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.75);
 }
 fieldset {
     border: solid;
     border-width: 1px;
-    border-color: #111111;
+    border-color: #FFFFFF;
+}
+input {
+    float: right;
+    clear: both;
+}
+#draw {
+    width: 100%;
 }
