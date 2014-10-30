@@ -4,12 +4,8 @@ require(["render", "helpers"], function (render, helpers) {
         ctx,
         r,
         draw,
-        checkPosition;
-    canvas.width = window.innerHeight;
-    canvas.height = window.innerHeight;
-    ctx = canvas.getContext("2d");
-
-    r = render(ctx, 0, 0, canvas.height, canvas.width);
+        checkPosition,
+        update;
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,
             color = {
@@ -58,12 +54,21 @@ require(["render", "helpers"], function (render, helpers) {
                 renderer.drawPixel(x, y, color.r, color.g, color.b, color.a);
             }
         }
-        r.commit();
+        renderer.commit();
     };
 
-    draw(-2.0, 2.0, -2.0, 2.0, 30, {
-        r: 30,
-        g: 30,
-        b: 30
-    });
+    update = function () {
+        var canvas, ctx, r;
+        canvas = document.getElementById("draw-area");
+        canvas.width = window.innerHeight;
+        canvas.height = window.innerHeight;
+        ctx = canvas.getContext("2d");
+        r = render(ctx, 0, 0, canvas.height, canvas.width);
+        draw(r, -2.0, 2.0, -2.0, 2.0, 30, {
+            r: 30,
+            g: 30,
+            b: 30
+        });
+    };
+    update();
 });

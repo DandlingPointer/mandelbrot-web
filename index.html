@@ -8,6 +8,38 @@
 
 <body>
     <canvas id="draw-area"></canvas>
+    <div id="control-panel">
+        <form>
+            <fieldset>
+                <legend>dimensions</legend>
+                width:
+                <input type="number" id="width" name="width">
+                <br>height:
+                <input type="number" id="height" name="height">
+            </fieldset>
+            <fieldset>
+                <legend>area</legend>
+                min X:
+                <input type="number" id="min-x" name="minX">
+                <br>max X:
+                <input type="number" id="max-x" name="maxX">
+                <br>min Y:
+                <input type="number" id="min-y" name="minY">
+                <br>max Y:
+                <input type="number" id="max-y" name="maxY">
+            </fieldset>
+
+            <fieldset>
+                <legend>color modification</legend>
+                red:
+                <input type="number" id="mod-r" name="modR">
+                <br>green:
+                <input type="number" id="mod-g" name="modG">
+                <br>blue:
+                <input type="number" id="mod-b" name="modB">
+            </fieldset>
+        </form>
+    </div>
     <script data-main="scripts/main" src="scripts/require.js"></script>
 </body>
 

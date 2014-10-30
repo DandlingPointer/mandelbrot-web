@@ -1,0 +1,14 @@
+#draw-area {
+    left: 0;
+    top: 0;
+}
+#control-panel {
+    right: 10px;
+    top: 10px;
+    position: fixed;
+}
+fieldset {
+    border: solid;
+    border-width: 1px;
+    border-color: #111111;
+}
