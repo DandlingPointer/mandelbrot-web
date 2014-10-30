@@ -14,21 +14,10 @@ require(["render", "helpers"], function (render, helpers) {
         addWarning,
         removeWarning,
         addError,
-        removeError;
-    width = 500;
-    height = 500;
-    dimensions = {
-        minX: -2.0,
-        maxX: 2.0,
-        minY: -2.0,
-        maxY: 2.0
-    };
-    iterations = 30;
-    colorMod = {
-        r: 30,
-        g: 30,
-        b: 30
-    };
+        removeError,
+        reset,
+        validateFunctionFactory;
+
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,
             color = {
@@ -80,7 +69,32 @@ require(["render", "helpers"], function (render, helpers) {
         renderer.commit();
     };
 
-
+    reset = function () {
+        width = 500;
+        height = 500;
+        dimensions = {
+            minX: -2.0,
+            maxX: 2.0,
+            minY: -2.0,
+            maxY: 2.0
+        };
+        iterations = 30;
+        colorMod = {
+            r: 30,
+            g: 30,
+            b: 30
+        };
+        document.getElementById("width").value = width;
+        document.getElementById("height").value = height;
+        document.getElementById("min-x").value = dimensions.minX;
+        document.getElementById("max-x").value = dimensions.maxX;
+        document.getElementById("min-y").value = dimensions.minY;
+        document.getElementById("max-y").value = dimensions.maxY;
+        document.getElementById("iterations").value = iterations;
+        document.getElementById("mod-r").value = colorMod.r;
+        document.getElementById("mod-g").value = colorMod.g;
+        document.getElementById("mod-b").value = colorMod.b;
+    };
 
     update = function () {
         var canvas, ctx, r;
@@ -119,122 +133,37 @@ require(["render", "helpers"], function (render, helpers) {
         node.classList.remove("warning");
     };
 
+    validateFunctionFactory = function (property, minVal, maxVal) {
+        return function () {
+            var val = this.value;
+            removeWarning(this);
+            removeError(this);
+            if (isNaN(Number(val))) {
+                addError(this);
+                return;
+            }
+            if (!Number.isNaN(minVal) && !Number.isNaN(maxVal)) {
+                if (val > maxVal || val < minVal) {
+                    addWarning(this);
+                } else {
+                    removeWarning(this);
+                }
+            }
+            property = val;
+        };
+    };
+    reset();
     document.getElementById("draw-button").onclick = update;
-    document.getElementById("width").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        if (val > 3000 || val < 200) {
-            addWarning(this);
-        } else {
-            removeWarning(this);
-        }
-        width = val;
-    };
-    document.getElementById("height").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        if (val > 3000 || val < 200) {
-            addWarning(this);
-        } else {
-            removeWarning(this);
-        }
-        height = val;
-    };
-    document.getElementById("min-x").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        dimensions.minX = val;
-    };
-    document.getElementById("max-x").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        dimensions.maxX = val;
-
-    };
-    document.getElementById("min-y").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        dimensions.minY = val;
-    };
-    document.getElementById("max-y").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        dimensions.maxY = val;
-    };
-    document.getElementById("iterations").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        if (val > 100) {
-            addWarning(this);
-        } else {
-            removeWarning(this);
-        }
-        iterations = val;
-    };
-    document.getElementById("mod-r").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        colorMod.r = val;
-    };
-    document.getElementById("mod-g").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        colorMod.g = val;
-    };
-    document.getElementById("mod-b").onkeyup = function () {
-        var val = this.value;
-        removeWarning(this);
-        removeError(this);
-        if (Number.isNaN(Number(val))) {
-            addError(this);
-            return;
-        }
-        colorMod.b = val;
-    };
+    document.getElementById("reset").onclick = reset;
+    document.getElementById("width").onkeyup = validateFunctionFactory(width, 200, 3000);
+    document.getElementById("height").onkeyup = validateFunctionFactory(height, 200, 3000);
+    document.getElementById("min-x").onkeyup = validateFunctionFactory(dimensions.minX, NaN, NaN);
+    document.getElementById("max-x").onkeyup = validateFunctionFactory(dimensions.maxX, NaN, NaN);
+    document.getElementById("min-y").onkeyup = validateFunctionFactory(dimensions.minY, NaN, NaN);
+    document.getElementById("max-y").onkeyup = validateFunctionFactory(dimensions.maxY, NaN, NaN);
+    document.getElementById("iterations").onkeyup = validateFunctionFactory(iterations, 0, 30);
+    document.getElementById("mod-r").onkeyup = validateFunctionFactory(colorMod.r, NaN, NaN);
+    document.getElementById("mod-g").onkeyup = validateFunctionFactory(colorMod.g, NaN, NaN);
+    document.getElementById("mod-b").onkeyup = validateFunctionFactory(colorMod.b, NaN, NaN);
     update();
 });
