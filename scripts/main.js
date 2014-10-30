@@ -10,7 +10,11 @@ require(["render", "helpers"], function (render, helpers) {
         height,
         dimensions,
         iterations,
-        colorMod;
+        colorMod,
+        addWarning,
+        removeWarning,
+        addError,
+        removeError;
     width = 500;
     height = 500;
     dimensions = {
@@ -77,6 +81,7 @@ require(["render", "helpers"], function (render, helpers) {
     };
 
 
+
     update = function () {
         var canvas, ctx, r;
         canvas = document.getElementById("draw-area");
@@ -86,114 +91,149 @@ require(["render", "helpers"], function (render, helpers) {
         r = render(ctx, 0, 0, canvas.height, canvas.width);
         draw(r, dimensions, iterations, colorMod);
     };
+
+    addError = function (node) {
+        node.previousElementSibling.classList.add("fa");
+        node.previousElementSibling.classList.add("fa-times-circle");
+        node.previousElementSibling.classList.add("error-sign");
+        node.classList.add("error");
+    };
+    removeError = function (node) {
+        node.previousElementSibling.classList.remove("fa");
+        node.previousElementSibling.classList.remove("fa-times-circle");
+        node.previousElementSibling.classList.remove("error-sign");
+        node.classList.remove("error");
+    };
+
+    addWarning = function (node) {
+        node.previousElementSibling.classList.add("fa");
+        node.previousElementSibling.classList.add("fa-warning");
+        node.previousElementSibling.classList.add("warning-sign");
+        node.classList.add("warning");
+    };
+
+    removeWarning = function (node) {
+        node.previousElementSibling.classList.remove("fa");
+        node.previousElementSibling.classList.remove("fa-warning");
+        node.previousElementSibling.classList.remove("warning-sign");
+        node.classList.remove("warning");
+    };
+
     document.getElementById("draw-button").onclick = update;
-    document.getElementById("width").onchange = function () {
+    document.getElementById("width").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (isNaN(Number(val))) {
-            alert("horror");
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        if (val > 3000) {
-            this.classList.add("warning");
+        if (val > 3000 || val < 200) {
+            addWarning(this);
         } else {
-            this.classList.remove("warning");
+            removeWarning(this);
         }
-        this.classList.remove("error");
         width = val;
     };
-    document.getElementById("height").onchange = function () {
+    document.getElementById("height").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        if (val > 3000) {
-            this.classList.add("warning");
+        if (val > 3000 || val < 200) {
+            addWarning(this);
         } else {
-            this.classList.remove("warning");
+            removeWarning(this);
         }
-        this.classList.remove("error");
         height = val;
     };
-    document.getElementById("min-x").onchange = function () {
+    document.getElementById("min-x").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         dimensions.minX = val;
     };
-    document.getElementById("max-x").onchange = function () {
+    document.getElementById("max-x").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         dimensions.maxX = val;
 
     };
-    document.getElementById("min-y").onchange = function () {
+    document.getElementById("min-y").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         dimensions.minY = val;
     };
-    document.getElementById("max-y").onchange = function () {
+    document.getElementById("max-y").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         dimensions.maxY = val;
-
     };
-    document.getElementById("iterations").onchange = function () {
+    document.getElementById("iterations").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
         if (val > 100) {
-            this.classList.add("warning");
+            addWarning(this);
         } else {
-            this.classList.remove("warning");
+            removeWarning(this);
         }
-        this.classList.remove("error");
         iterations = val;
     };
-    document.getElementById("mod-r").onchange = function () {
+    document.getElementById("mod-r").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         colorMod.r = val;
-
     };
-    document.getElementById("mod-g").onchange = function () {
+    document.getElementById("mod-g").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         colorMod.g = val;
     };
-    document.getElementById("mod-b").onchange = function () {
+    document.getElementById("mod-b").onkeyup = function () {
         var val = this.value;
+        removeWarning(this);
+        removeError(this);
         if (Number.isNaN(Number(val))) {
-            this.classList.add("error");
+            addError(this);
             return;
         }
-        this.classList.remove("error");
         colorMod.b = val;
     };
     update();
