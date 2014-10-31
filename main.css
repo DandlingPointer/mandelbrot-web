@@ -1,0 +1,65 @@
+header {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: #222222;
+    color: white;
+    font-family: "Lobster";
+    line-height: 50px;
+    font-size: 200%;
+    padding-left: 10px;
+}
+body {
+    font-family: "Open Sans";
+}
+#draw-area {
+    margin-top: 50px;
+}
+#control-panel {
+    top: 50px;
+    right: 0px;
+    padding: 10px;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    background-color: #333333;
+    color: #FFFFFF;
+}
+fieldset {
+    border: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    line-height: 27px;
+    font-size: 15px;
+}
+input {
+    float: right;
+    border: solid 1px #888;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 2px;
+    outline: none;
+    width: 60px;
+}
+#draw {
+    width: 100%;
+}
+.warning {
+    border-color: #F2BD1D;
+}
+.warning-sign {
+    width: 15px;
+    height: 15px;
+    color: #F2BD1D;
+}
+.error {
+    border-color: #F20600;
+}
+.error-sign {
+    width: 15px;
+    height: 15px;
+    color: #F20600;
+}
