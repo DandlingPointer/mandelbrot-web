@@ -117,6 +117,7 @@ require(["render", "helpers"], function (render, helpers) {
     update = function () {
         var i, errElems, canvas, ctx, r, el, newEl;
         if (errorFlag === true) {
+            /*
             errElems = document.getElementsByClassName("error-sign");
             for (i = 0; i < errElems.length; i = i + 1) {
                 el = errElems.item(i);
@@ -124,6 +125,7 @@ require(["render", "helpers"], function (render, helpers) {
                 el.parentNode.replaceChild(newEl, el);
                 el.classList.add("blink");
             }
+            */
             return;
         }
         canvas = document.getElementById("draw-area");
