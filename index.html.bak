@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mandelbrot Web</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- google font -->
+    <link href='http://fonts.googleapis.com/css?family=Lobster|Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        Mandelbrot
+    </header>
+    <canvas id="draw-area"></canvas>
+    <div id="control-panel">
+        <form>
+            <fieldset>
+                <legend>dimensions</legend>
+                width:
+                <i></i>
+                <input type="text" id="width" name="width" value="500">
+                <br>height:
+                <i></i>
+                <input type="text" id="height" name="height" value="500">
+            </fieldset>
+            <fieldset>
+                <legend>area</legend>
+                min X:
+                <i></i>
+                <input type="text" id="min-x" name="minX" value="-2.0">
+                <br>max X:
+                <i></i>
+                <input type="text" id="max-x" name="maxX" value="2.0">
+                <br>min Y:
+                <i></i>
+                <input type="text" id="min-y" name="minY" value="-2.0">
+                <br>max Y:
+                <i></i>
+                <input type="text" id="max-y" name="maxY" value="2.0">
+            </fieldset>
+
+            <fieldset>
+                <legend>color modification</legend>
+                red:
+                <i></i>
+                <input type="text" id="mod-r" name="modR" value="30">
+                <br>green:
+                <i></i>
+                <input type="text" id="mod-g" name="modG" value="30">
+                <br>blue:
+                <i></i>
+                <input type="text" id="mod-b" name="modB" value="30">
+            </fieldset>
+            <fieldset>
+                <legend>Setup</legend>
+                Iterations:
+                <i></i>
+                <input type="text" id="iterations" name="interations" value="30">
+                <br>
+            </fieldset>
+            <br>
+        </form>
+        <button id="draw-button" name="draw">Draw</button>
+        <button id="reset" name="reset">Reset</button>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
