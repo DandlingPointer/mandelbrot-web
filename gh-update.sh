@@ -13,5 +13,5 @@ rm -rf main.css
 cp out/main.js main.js
 cp out/index.html index.html
 cp out/main.css main.css
-sed -i.bak "s/<script data-main=\"scripts\/main\" src=\"scripts\/require.js\"><\/script>/<script src=\"main.js\"><\/script>/g"
-sed -i.bak "s/<link rel=\"stylesheet\" type=\"text\/css\" href=\"css\/main.css\">/<link rel=\"stylesheet\" type=\"text\/css\" href=\"main.css\">/g"
+sed -i bak -e "s/<script data-main=\"scripts\/main\" src=\"scripts\/require.js\"><\/script>/<script src=\"main.js\"><\/script>/g"
+sed -i bak -e "s/<link rel=\"stylesheet\" type=\"text\/css\" href=\"css\/main.css\">/<link rel=\"stylesheet\" type=\"text\/css\" href=\"main.css\">/g"
