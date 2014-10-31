@@ -1,5 +1,5 @@
 ({
-    baseUrl: "./scripts",
+    baseUrl: ".",
     name: "main.js",
-    out: "./out/main.js"
+    out: "../out/main.js"
 })
