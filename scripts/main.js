@@ -6,17 +6,13 @@ require(["render", "helpers"], function (render, helpers) {
         draw,
         checkPosition,
         update,
-        width,
-        height,
-        dimensions,
-        iterations,
-        colorMod,
         addWarning,
         removeWarning,
         addError,
         removeError,
         reset,
-        validateFunctionFactory;
+        validateFunctionFactory,
+        errorFlag;
 
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,
@@ -74,70 +70,77 @@ require(["render", "helpers"], function (render, helpers) {
             minYNode, maxYNode, iterationsNode,
             modRNode, modGNode, modBNode;
 
-        width = 500;
-        height = 500;
-        dimensions = {
-            minX: -2.0,
-            maxX: 2.0,
-            minY: -2.0,
-            maxY: 2.0
-        };
-        iterations = 30;
-        colorMod = {
-            r: 30,
-            g: 30,
-            b: 30
-        };
         widthNode = document.getElementById("width");
-        widthNode.value = width;
+        widthNode.value = 500;
         removeError(widthNode);
         removeWarning(widthNode);
         heightNode = document.getElementById("height");
-        heightNode.value = height;
+        heightNode.value = 500;
         removeError(heightNode);
         removeWarning(heightNode);
         minXNode = document.getElementById("min-x");
-        minXNode.value = dimensions.minX;
+        minXNode.value = -2.0;
         removeError(minXNode);
         removeWarning(minXNode);
         maxXNode = document.getElementById("max-x");
-        maxXNode.value = dimensions.maxX;
+        maxXNode.value = 2.0;
         removeError(maxXNode);
         removeWarning(maxXNode);
         minYNode = document.getElementById("min-y");
-        minYNode.value = dimensions.minY;
+        minYNode.value = -2.0;
         removeError(minYNode);
         removeWarning(minYNode);
         maxYNode = document.getElementById("max-y");
-        maxYNode.value = dimensions.maxY;
+        maxYNode.value = 2.0;
         removeError(maxYNode);
         removeWarning(maxYNode);
         iterationsNode = document.getElementById("iterations");
-        iterationsNode.value = iterations;
+        iterationsNode.value = 30;
         removeError(iterationsNode);
         removeWarning(iterationsNode);
         modRNode = document.getElementById("mod-r");
-        modRNode.value = colorMod.r;
+        modRNode.value = 30;
         removeError(modRNode);
         removeWarning(modRNode);
         modGNode = document.getElementById("mod-g");
-        modGNode.value = colorMod.g;
+        modGNode.value = 30;
         removeError(modGNode);
         removeWarning(modGNode);
         modBNode = document.getElementById("mod-b");
-        modBNode.value = colorMod.b;
+        modBNode.value = 30;
         removeError(modBNode);
         removeWarning(modBNode);
+        errorFlag = false;
+
     };
 
     update = function () {
-        var canvas, ctx, r;
+        var i, errElems, canvas, ctx, r, el, newEl;
+        if (errorFlag === true) {
+            errElems = document.getElementsByClassName("error-sign");
+            for (i = 0; i < errElems.length; i = i + 1) {
+                el = errElems.item(i);
+                newEl = el.cloneNode(true);
+                el.parentNode.replaceChild(newEl, el);
+                el.classList.add("blink");
+            }
+            return;
+        }
         canvas = document.getElementById("draw-area");
         canvas.width = Number(document.getElementById("width").value);
         canvas.height = Number(document.getElementById("height").value);
         ctx = canvas.getContext("2d");
         r = render(ctx, 0, 0, canvas.height, canvas.width);
-        draw(r, dimensions, iterations, colorMod);
+        draw(r, {
+            minX: Number(document.getElementById("min-x").value),
+            maxX: Number(document.getElementById("max-x").value),
+            minY: Number(document.getElementById("min-y").value),
+            maxY: Number(document.getElementById("max-y").value)
+        }, Number(document.getElementById("iterations").value), {
+            r: Number(document.getElementById("mod-r").value),
+            g: Number(document.getElementById("mod-g").value),
+            b: Number(document.getElementById("mod-b").value)
+        });
     };
 
     addError = function (node) {
@@ -145,12 +148,14 @@ require(["render", "helpers"], function (render, helpers) {
         node.previousElementSibling.classList.add("fa-times-circle");
         node.previousElementSibling.classList.add("error-sign");
         node.classList.add("error");
+        errorFlag = true;
     };
     removeError = function (node) {
         node.previousElementSibling.classList.remove("fa");
         node.previousElementSibling.classList.remove("fa-times-circle");
         node.previousElementSibling.classList.remove("error-sign");
         node.classList.remove("error");
+        errorFlag = false;
     };
 
     addWarning = function (node) {
@@ -167,7 +172,7 @@ require(["render", "helpers"], function (render, helpers) {
         node.classList.remove("warning");
     };
 
-    validateFunctionFactory = function (property, minVal, maxVal) {
+    validateFunctionFactory = function (minVal, maxVal) {
         return function () {
             var val = this.value;
             removeWarning(this);
@@ -176,28 +181,27 @@ require(["render", "helpers"], function (render, helpers) {
                 addError(this);
                 return;
             }
-            if (!Number.isNaN(minVal) && !Number.isNaN(maxVal)) {
+            if (!isNaN(minVal) && !isNaN(maxVal)) {
                 if (val > maxVal || val < minVal) {
                     addWarning(this);
                 } else {
                     removeWarning(this);
                 }
             }
-            property = val;
         };
     };
     reset();
     document.getElementById("draw-button").onclick = update;
     document.getElementById("reset").onclick = reset;
-    document.getElementById("width").onkeyup = validateFunctionFactory(width, 200, 3000);
-    document.getElementById("height").onkeyup = validateFunctionFactory(height, 200, 3000);
-    document.getElementById("min-x").onkeyup = validateFunctionFactory(dimensions.minX, NaN, NaN);
-    document.getElementById("max-x").onkeyup = validateFunctionFactory(dimensions.maxX, NaN, NaN);
-    document.getElementById("min-y").onkeyup = validateFunctionFactory(dimensions.minY, NaN, NaN);
-    document.getElementById("max-y").onkeyup = validateFunctionFactory(dimensions.maxY, NaN, NaN);
-    document.getElementById("iterations").onkeyup = validateFunctionFactory(iterations, 0, 30);
-    document.getElementById("mod-r").onkeyup = validateFunctionFactory(colorMod.r, NaN, NaN);
-    document.getElementById("mod-g").onkeyup = validateFunctionFactory(colorMod.g, NaN, NaN);
-    document.getElementById("mod-b").onkeyup = validateFunctionFactory(colorMod.b, NaN, NaN);
+    document.getElementById("width").onkeyup = validateFunctionFactory(200, 3000);
+    document.getElementById("height").onkeyup = validateFunctionFactory(200, 3000);
+    document.getElementById("min-x").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("max-x").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("min-y").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("max-y").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("iterations").onkeyup = validateFunctionFactory(0, 30);
+    document.getElementById("mod-r").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("mod-g").onkeyup = validateFunctionFactory(NaN, NaN);
+    document.getElementById("mod-b").onkeyup = validateFunctionFactory(NaN, NaN);
     update();
 });
