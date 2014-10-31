@@ -1,3 +1,4 @@
+#!/bin/bash
 git reset --hard HEAD
 git checkout master
 cd ./tools
