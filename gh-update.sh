@@ -2,10 +2,10 @@
 git reset --hard HEAD
 git checkout master
 cd scripts/
-node ../tools/r.js -o ../tools/build.js
+node ../tools/r.js -o baseUrl=. name=main out="../out/main.js"
+cd ..
 cp css/main.css out/main.css
 cp index.html out/index.html
-cd ..
 git checkout gh-pages
 rm -rf main.js
 rm -rf index.html
