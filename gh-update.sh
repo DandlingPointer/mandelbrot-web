@@ -2,7 +2,7 @@
 git reset --hard HEAD
 git checkout master
 cd scripts/
-node ../tools/r.js -o baseUrl=. name=main out="../out/main.js"
+node ../tools/r.js -o baseUrl=. name=main out="../out/main.js" paths.requireLib=require
 cd ..
 cp css/main.css out/main.css
 cp index.html out/index.html
