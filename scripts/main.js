@@ -70,6 +70,10 @@ require(["render", "helpers"], function (render, helpers) {
     };
 
     reset = function () {
+        var widthNode, heightNode, minXNode, maxXNode,
+            minYNode, maxYNode, iterationsNode,
+            modRNode, modGNode, modBNode;
+
         width = 500;
         height = 500;
         dimensions = {
@@ -84,26 +88,46 @@ require(["render", "helpers"], function (render, helpers) {
             g: 30,
             b: 30
         };
-        document.getElementById("width").value = width;
-        validateFunctionFactory(width, 200, 3000)();
-        document.getElementById("height").value = height;
-        validateFunctionFactory(height, 200, 3000)();
-        document.getElementById("min-x").value = dimensions.minX;
-        validateFunctionFactory(dimensions.minX, NaN, NaN)();
-        document.getElementById("max-x").value = dimensions.maxX;
-        validateFunctionFactory(dimensions.maxX, NaN, NaN)();
-        document.getElementById("min-y").value = dimensions.minY;
-        validateFunctionFactory(dimensions.minY, NaN, NaN)();
-        document.getElementById("max-y").value = dimensions.maxY;
-        validateFunctionFactory(dimensions.maxY, NaN, NaN)();
-        document.getElementById("iterations").value = iterations;
-        validateFunctionFactory(iterations, 0, 30)();
-        document.getElementById("mod-r").value = colorMod.r;
-        validateFunctionFactory(colorMod.r, NaN, NaN)();
-        document.getElementById("mod-g").value = colorMod.g;
-        validateFunctionFactory(colorMod.g, NaN, NaN)();
-        document.getElementById("mod-b").value = colorMod.b;
-        validateFunctionFactory(colorMod.b, NaN, NaN)();
+        widthNode = document.getElementById("width");
+        widthNode.value = width;
+        removeError(widthNode);
+        removeWarning(widthNode);
+        heightNode = document.getElementById("height");
+        heightNode.value = height;
+        removeError(heightNode);
+        removeWarning(heightNode);
+        minXNode = document.getElementById("min-x");
+        minXNode.value = dimensions.minX;
+        removeError(minXNode);
+        removeWarning(minXNode);
+        maxXNode = document.getElementById("max-x");
+        maxXNode.value = dimensions.maxX;
+        removeError(maxXNode);
+        removeWarning(maxXNode);
+        minYNode = document.getElementById("min-y");
+        minYNode.value = dimensions.minY;
+        removeError(minYNode);
+        removeWarning(minYNode);
+        maxYNode = document.getElementById("max-y");
+        maxYNode.value = dimensions.maxY;
+        removeError(maxYNode);
+        removeWarning(maxYNode);
+        iterationsNode = document.getElementById("iterations");
+        iterationsNode.value = iterations;
+        removeError(iterationsNode);
+        removeWarning(iterationsNode);
+        modRNode = document.getElementById("mod-r");
+        modRNode.value = colorMod.r;
+        removeError(modRNode);
+        removeWarning(modRNode);
+        modGNode = document.getElementById("mod-g");
+        modGNode.value = colorMod.g;
+        removeError(modGNode);
+        removeWarning(modGNode);
+        modBNode = document.getElementById("mod-b");
+        modBNode.value = colorMod.b;
+        removeError(modBNode);
+        removeWarning(modBNode);
     };
 
     update = function () {
