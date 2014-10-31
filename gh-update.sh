@@ -1,7 +1,6 @@
 #!/bin/bash
 git reset --hard HEAD
 git checkout master
-cd ./tools
 node r.js -o tools/build.js
 cp css/main.css out/main.css
 cp index.html out/index.html
