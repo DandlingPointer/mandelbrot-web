@@ -12,7 +12,18 @@ require(["render", "helpers"], function (render, helpers) {
         removeError,
         reset,
         validateFunctionFactory,
-        errorFlag;
+        errorFlag, updateProgressBar,
+        removeProgressBar;
+
+    updateProgressBar = function (val, max) {
+        document.getElementById("progress-bar").setAttribute("value", val);
+        document.getElementById("progress-bar").setAttribute("max", max);
+    };
+
+    removeProgressBar = function (val, max) {
+        document.getElementById("progress-bar").removeAttribute("value");
+        document.getElementById("progress-bar").removeAttribute("max");
+    };
 
     checkPosition = function (z, c, iterations, mod) {
         var i, temp, res,

@@ -1,14 +1,64 @@
+progress {
+    position: fixed;
+    width: 100%;
+    height: 5px;
+    left: 0;
+    top: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    broder: none;
+}
+
+progress::-moz-progress-bar {
+    background-color: #222222;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #222222;
+}
+progress::-webkit-progress-value {
+    background-color: #444444;
+}
+
+progress[value] {
+    position: fixed;
+    width: 100%;
+    height: 5px;
+    left: 0;
+    top: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border: none;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: #222222;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: #444444;
+}
+
+progress[value]::-moz-progress-bar {
+    background-color: #222222;
+}
+
 header {
     position: fixed;
     height: 50px;
     width: 100%;
     left: 0;
-    top: 0;
+    top: 5px;
     background-color: #222222;
     color: white;
     font-family: "Lobster";
     line-height: 50px;
     font-size: 200%;
+    padding-bottom: 5px;
     padding-left: 10px;
 }
 .blink {
@@ -29,10 +79,10 @@ body {
     font-family: "Open Sans";
 }
 #draw-area {
-    margin-top: 50px;
+    margin-top: 60px;
 }
 #control-panel {
-    top: 50px;
+    top: 60px;
     right: 0px;
     padding: 10px;
     position: fixed;
@@ -42,13 +92,41 @@ body {
     color: #FFFFFF;
 }
 fieldset {
-    border: solid;
-    border-width: 1px;
-    border-color: #FFFFFF;
-    border-radius: 5px;
+    border: 0;
+    background-color: #444444;
     line-height: 27px;
     font-size: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
 }
+
+legend {
+    background-color: #555555;
+    border: 0;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+button {
+    border: 0;
+    border-radius: 5px;
+    background-color: #555555;
+    color: #FFFFFF;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+button:focus {
+    outline: 0;
+    background-color: #666666;
+}
+
+button:active {
+    background-color: #777777;
+}
+
 input {
     float: right;
     border: solid 1px #888;
