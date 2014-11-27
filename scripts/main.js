@@ -13,7 +13,7 @@ require(["render", "helpers"], function (render, helpers) {
         reset,
         validateFunctionFactory,
         errorFlag, updateProgressBar,
-        removeProgressBar;
+        removeProgressBar, download, zoom;
 
     updateProgressBar = function (val, max) {
         document.getElementById("progress-bar").setAttribute("value", val);
@@ -203,9 +203,30 @@ require(["render", "helpers"], function (render, helpers) {
             }
         };
     };
+    download = function (e) {
+        var dataURL = canvas.toDataURL('image/png');
+        console.log("Hi");
+        console.log(dataURL);
+        e.target.href = dataURL;
+    };
+
+    zoom = function (e) {
+        console.log("hi");
+        var x = helpers.mapVal(e.clientX, 0,
+            canvas.width, document.getElementById("min-x").value, document.getElementById("max-x").value);
+        var y = helpers.mapVal(e.clientY, 0,
+            canvas.width, document.getElementById("min-y").value, document.getElementById("max-y").value);
+        document.getElementById("min-x").value = x + document.getElementById("min-x").value / 2;
+        document.getElementById("max-x").value = x + document.getElementById("max-x").value / 2;
+        document.getElementById("min-y").value = y + document.getElementById("min-y").value / 2;
+        document.getElementById("max-y").value = y + document.getElementById("max-y").value / 2;
+        update();
+    };
     reset();
     document.getElementById("draw-button").onclick = update;
     document.getElementById("reset").onclick = reset;
+    document.getElementById("download-btn").onclick = download;
+    document.getElementById("draw-area").onclick = zoom;
     document.getElementById("width").onkeyup = validateFunctionFactory(200, 3000);
     document.getElementById("height").onkeyup = validateFunctionFactory(200, 3000);
     document.getElementById("min-x").onkeyup = validateFunctionFactory(NaN, NaN);
